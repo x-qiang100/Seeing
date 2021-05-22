@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seeing.mapper.ContactMapper">
+  <resultMap id="BaseResultMap" type="com.seeing.pojo.Contact">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="user" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="phone" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="relation" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user, name, phone, relation
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from contact
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from contact
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.seeing.pojo.Contact">
+    insert into contact (id, user, name, 
+      phone, relation)
+    values (#{id,jdbcType=INTEGER}, #{user,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{relation,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.seeing.pojo.Contact">
+    insert into contact
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="user != null">
+        user,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="relation != null">
+        relation,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="user != null">
+        #{user,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="relation != null">
+        #{relation,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seeing.pojo.Contact">
+    update contact
+    <set>
+      <if test="user != null">
+        user = #{user,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="relation != null">
+        relation = #{relation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.seeing.pojo.Contact">
+    update contact
+    set user = #{user,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      relation = #{relation,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="selectByBlind" resultType="Contact">
+    select
+    <include refid="Base_Column_List" />
+    from contact
+    where user = #{blind}
+  </select>
+
+</mapper>

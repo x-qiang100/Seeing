@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seeing.mapper.RecordMapper">
+  <resultMap id="BaseResultMap" type="com.seeing.pojo.Record">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="volunteer" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="blind" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="evaluate" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, volunteer, blind, evaluate, time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.seeing.pojo.Record">
+    insert into record (id, volunteer, blind, 
+      evaluate, time)
+    values (#{id,jdbcType=INTEGER}, #{volunteer,jdbcType=INTEGER}, #{blind,jdbcType=INTEGER}, 
+      #{evaluate,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.seeing.pojo.Record">
+    insert into record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="volunteer != null">
+        volunteer,
+      </if>
+      <if test="blind != null">
+        blind,
+      </if>
+      <if test="evaluate != null">
+        evaluate,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="volunteer != null">
+        #{volunteer,jdbcType=INTEGER},
+      </if>
+      <if test="blind != null">
+        #{blind,jdbcType=INTEGER},
+      </if>
+      <if test="evaluate != null">
+        #{evaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seeing.pojo.Record">
+    update record
+    <set>
+      <if test="volunteer != null">
+        volunteer = #{volunteer,jdbcType=INTEGER},
+      </if>
+      <if test="blind != null">
+        blind = #{blind,jdbcType=INTEGER},
+      </if>
+      <if test="evaluate != null">
+        evaluate = #{evaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.seeing.pojo.Record">
+    update record
+    set volunteer = #{volunteer,jdbcType=INTEGER},
+      blind = #{blind,jdbcType=INTEGER},
+      evaluate = #{evaluate,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByVolunteer" resultType="Record">
+    select
+    <include refid="Base_Column_List" />
+    from record
+    where volunteer = #{volunteer,jdbcType=INTEGER}
+  </select>
+</mapper>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seeing.mapper.theMapMapper">
+  <resultMap id="BaseResultMap" type="com.seeing.pojo.theMap">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="longitude" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="latitude" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="userId" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="message" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, longitude, latitude, userId, message
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from themap
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from themap
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.seeing.pojo.theMap">
+    insert into themap (id, longitude, latitude, 
+      userId, message)
+    values (#{id,jdbcType=INTEGER}, #{longitude,jdbcType=DOUBLE}, #{latitude,jdbcType=DOUBLE}, 
+      #{userid,jdbcType=INTEGER}, #{message,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.seeing.pojo.theMap">
+    insert into themap
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="message != null">
+        message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="message != null">
+        #{message,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seeing.pojo.theMap">
+    update themap
+    <set>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="message != null">
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.seeing.pojo.theMap">
+    update themap
+    set longitude = #{longitude,jdbcType=DOUBLE},
+      latitude = #{latitude,jdbcType=DOUBLE},
+      userId = #{userid,jdbcType=INTEGER},
+      message = #{message,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAll" resultType="com.seeing.pojo.theMap">
+    select
+    <include refid="Base_Column_List" />
+    from themap
+  </select>
+
+  <select id="selectByPoint" resultType="Integer">
+    select
+    sel.id
+    from(
+        SELECT
+            id
+        FROM themap
+        <if test="distance>0">
+            where #{distance} > ROUND(  6378.138*2*ASIN(SQRT(POW(SIN((latitude*PI()/180-#{latitude}*PI()/180)/2),2)+
+            COS(latitude*PI()/180)*COS(#{latitude}*PI()/180)*POW(SIN((longitude*PI()/180-#{longitude}*PI()/180)/2),2)))*1000)
+        </if>
+        )sel
+  </select>
+
+
+
+</mapper>
