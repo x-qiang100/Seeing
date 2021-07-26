@@ -39,6 +39,7 @@ public class FileController {
     @ResponseBody
     @RequestMapping(value = "/download/{imageName}")
     public void getPic(@PathVariable String imageName , HttpServletResponse response) {
+
         HttpFile httpFileDownload = new HttpFile();
         httpFileDownload.getFile(response , imageName);
     }

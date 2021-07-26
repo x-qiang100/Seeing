@@ -36,7 +36,6 @@ public class TokenUtil {
             header.put("Type","Jwt");
             header.put("alg","HS256");
 
-
             String token =  JWT.create()
                     .withHeader(header)
                     .withClaim("id",id.toString())
@@ -73,6 +72,7 @@ public class TokenUtil {
     }
 
     public static String getInfo(String token ,String type){
+
         try {
             DecodedJWT jwt = JWT.decode(token);
             if (type.equals("phone")) {

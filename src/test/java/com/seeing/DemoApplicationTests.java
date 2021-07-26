@@ -1,9 +1,11 @@
 package com.seeing;
 
+import com.aliyuncs.exceptions.ClientException;
 import com.seeing.mapper.RecordMapper;
 import com.seeing.mapper.UserMapper;
 import com.seeing.mapper.theMapMapper;
 import com.seeing.pojo.User;
+import com.seeing.utils.PhoneCodeUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -133,6 +135,11 @@ class DemoApplicationTests {
         }
         System.out.println("-------------- Test End --------------");
 
+    }
+
+    @Test
+    void phone() throws ClientException {
+        PhoneCodeUtil.sendSms("18835490908");
     }
 
 
