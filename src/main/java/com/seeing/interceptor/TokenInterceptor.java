@@ -25,12 +25,10 @@ public class TokenInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println(" 开始经过拦截器" );
         response.setCharacterEncoding("UTF-8");
         String token = request.getHeader("token");
         if(token == null){
                 request.getRequestDispatcher("/user/tokenExpire").forward(request,response);
-            System.out.println("------------------null--------------");
         }else {
             //验证
             boolean r = TokenUtil.verify(token);

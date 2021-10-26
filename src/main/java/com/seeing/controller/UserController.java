@@ -60,7 +60,6 @@ public class UserController {
         try {
             serverResponse = iUserService.register(name, phone, password,type);
         }catch (Exception e){
-            System.out.println("-----");
             e.printStackTrace();
             e.getMessage();
             return ServerResponse.createByErrorMsg("注册失败");
@@ -167,9 +166,7 @@ public class UserController {
             return ServerResponse.createByErrorMsg("已失效");
         }
 
-        System.out.println("ftp文件传输  已停用" );
         String path = request.getSession().getServletContext().getRealPath("upload");
-        System.out.println("path = " + path);
         String targetFileName = iFileService.upload(file, path);
         String url = "ftp://***"
                 + targetFileName;

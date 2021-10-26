@@ -55,9 +55,6 @@ public class HttpFile {
         FileOutputStream out = null;
 
         String SavePath = filePath+uploadFileName;
-
-        System.out.println("s = " + SavePath);
-
         try {
 
 

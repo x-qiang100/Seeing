@@ -27,9 +27,7 @@ public class PhoneCodeUtil {
 
     /* 此处需要替换成开发者自己的accessKeyId和accessKeySecret(在阿里云访问控制台寻找) */
     private static final String accessKeyId = PropertiesUtil.getProperties("accessKeyId");
-    //TODO: 写自己生成的
     private static final String accessKeySecret = PropertiesUtil.getProperties("accessKeySecret");
-    //TODO: 写自己生成的
 
 
     /* 短信发送 */
@@ -57,7 +55,7 @@ public class PhoneCodeUtil {
 
         //存入redis,五分钟过期
         if ( !RedisUtil.setCode(phone,code) ){
-            System.out.println("存入错误");
+            throw new ClientException("验证码发送错误");
         }
 
         request.setTemplateParam("{\"code\":\"" + code + "\"}");

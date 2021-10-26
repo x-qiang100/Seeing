@@ -8,7 +8,8 @@ public class RedisUtil {
     private  static Jedis jedis = new Jedis();
 
     private static void init() {
-        jedis = new Jedis("106.14.32.152",6379);
+        String host = PropertiesUtil.getProperties("ServerHost");
+        jedis = new Jedis(host,6379);
         jedis.auth(PropertiesUtil.getProperties("redis.password"));
     }
 

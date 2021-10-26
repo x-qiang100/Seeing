@@ -8,20 +8,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class MyMvcConfig implements WebMvcConfigurer {
 
-    public void addInterceptors(InterceptorRegistry registry) {
 
-        /**
-         * token
-         *所有方法都可不经token
-         */
-        System.out.println("mvcConfig-------------");
-        registry.addInterceptor(new TokenInterceptor()).addPathPatterns("");
-//                .addPathPatterns("/**")
-//            .excludePathPatterns(
-//            "/user/tokenExpire","/user/hello","/user/login","/user/register",
-//            "/user/forget","/user/verify","/user/reset_password"
-//            );
-    }
+    /**
+     * 拦截器，拦截没有token的
+     * @param registry
+     */
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new TokenInterceptor()).addPathPatterns("/**")
+        .excludePathPatterns("/user/tokenExpire","/user/hello","/user/login","/user/register",
+            "/user/forget","/user/verify","/user/reset_password"); }
 
 }
 

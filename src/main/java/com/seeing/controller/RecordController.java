@@ -42,7 +42,7 @@ public class RecordController {
         Date temDate = new Date();
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-             temDate = simpleDateFormat.parse(date);
+            temDate = simpleDateFormat.parse(date);
         }catch (Exception e){
             e.getMessage();
         }

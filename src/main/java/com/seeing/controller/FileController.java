@@ -24,7 +24,8 @@ public class FileController {
      */
     @ResponseBody
     @RequestMapping(value = "/file")
-    public ServerResponse getURL(@RequestParam(value = "image_file", required = false) MultipartFile file ,int id) {
+    public ServerResponse getURL(
+            @RequestParam(value = "image_file", required = false) MultipartFile file ) {
         HttpFile httpFile = new HttpFile();
         return ServerResponse.createBySuccess( httpFile.downloadFile( file) );
     }

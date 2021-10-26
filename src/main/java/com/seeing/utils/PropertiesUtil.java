@@ -5,7 +5,7 @@ import java.util.Properties;
 
 public class PropertiesUtil {
 
-    private static Properties properties = new Properties();
+    private static final Properties properties = new Properties();
     private static final String file = "";
     public static String getProperties(String key){
 

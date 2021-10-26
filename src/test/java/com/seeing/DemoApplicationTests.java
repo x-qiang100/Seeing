@@ -139,7 +139,7 @@ class DemoApplicationTests {
 
     @Test
     void phone() throws ClientException {
-        PhoneCodeUtil.sendSms("18835490908");
+        PhoneCodeUtil.sendSms("");
     }
 
 

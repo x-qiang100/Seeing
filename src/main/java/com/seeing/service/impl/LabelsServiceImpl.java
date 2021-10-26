@@ -24,7 +24,7 @@ public class LabelsServiceImpl implements ILabelsService {
         if (labels == null){
             return ServerResponse.createByErrorMsg("查询失败");
         }
-        Map map = new HashMap<String , String>();
+        Map<String, String> map = new HashMap<>();
         map.put("english",labels.getEnglish() );
         map.put("chinese",labels.getChinese() );
 
